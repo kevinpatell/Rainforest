@@ -6,4 +6,4 @@ def products_page(request):
     products = Product.objects.all()
     context = {'products': products}
     response = render(request, 'index.html', context)
-    return HttpResponse(response)
+    return HttpResponse(response)   
