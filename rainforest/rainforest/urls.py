@@ -13,14 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
-from rainforest.views import products_page, root, product_details, product_new
+from rainforest import views
 
 urlpatterns = [
-    path('', root),
     path('admin/', admin.site.urls),
-    path('products/', products_page, name="products_page"),
-    path('products/<int:id>', product_details, name="product_details"),
-    path('product/new', product_new, name="new_product")
+    path('', views.root, name='home'),
+    path('products/', views.products_page, name='products_list'),
+    path('products/<int:id>', views.product_details, name='product_details'),
+    path('product/new/', views.product_new, name='product_new'),
+    path('products/<int:id>/edit/', views.product_edit, name='product_edit'),
+    path('products/<int:id>/edit_submit/', views.edit_submit, name='edit_submit'),
+    path('products/<int:id>/delete/', views.delete_product, name='delete_product'),
+    path('products/<int:id>/reviews/create', views.review_new, name='review_new'),
+    path('products/<int:id>/reviews/<int:review_id>/edit', views.edit_review, name='edit_review'),
+    path('products/<int:id>/reviews/<int:review_id>/update', views.update_review, name='update_review'),
+    path('products/<int:id>/reviews/<int:review_id>/delete', views.delete_review, name='delete_review')
 ]

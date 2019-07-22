@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+  <h2>{{ product.name }}</h2>
+  <p>{{ product.description }}</p>
+  <p>Price: {{ product.price_in_dollars }}</p>
+  <a href="{% url 'product_edit' id=product.pk %}">Edit Product</a>
+  <a href="{% url 'delete_product' id=product.pk %}">Delete Product</a>
+</main>
+
+<h4>Add a review:</h4>
+<form method="POST" action="{% url 'review_new' id=product.pk %}">
+  {% csrf_token %}
+
+  {{ form.as_p }}
+
+  <button type='submit'>Post review</button>
+</form>
+
+<h4>Reviews</h4>
+<ul>
+  {% for review in product.reviews.all %}
+  <li>
+    {{ review }} - {{ review.published_date }}
+    <a href="{% url 'edit_review' id=product.pk review_id=review.pk %}">Edit Review</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

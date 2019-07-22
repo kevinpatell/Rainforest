@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.description }}</p>
+<h2>This is where you can add a brand new product. All by yourself.</h2>
+<form method="POST" action="{% url 'product_new' %}">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <button type="submit">Add Product</button>
+</form>
+
 {% endblock %}
